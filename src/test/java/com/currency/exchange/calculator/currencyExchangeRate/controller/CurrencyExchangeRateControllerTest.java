@@ -23,7 +23,7 @@ public class CurrencyExchangeRateControllerTest {
     private MockMvc mockMvc;
 
     
-    @Test // 
+    @Test
     public void testGetAllCurrencycode() throws Exception {
         Mockito.when(currencyCalculatorService.getCurrencyCode());
 
@@ -34,7 +34,7 @@ public class CurrencyExchangeRateControllerTest {
         Mockito.verify(currencyCalculatorService, Mockito.times(1)).getCurrencyCode();
     }
     
-    @Test // Get all actions controller
+    @Test 
     public void testGetAllCurrencyExchangevalue() throws Exception {
         Mockito.when(currencyCalculatorService.convertedValue(Mockito.any(), Mockito.any(), Mockito.any()));
 

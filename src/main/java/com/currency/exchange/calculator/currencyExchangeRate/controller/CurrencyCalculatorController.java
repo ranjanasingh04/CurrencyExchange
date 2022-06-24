@@ -43,7 +43,11 @@ public class CurrencyCalculatorController {
 		return service.convertedValue(source,currency,value);
 	}
 	
-	
+	@GetMapping("/homePage")
+	public String getHomePage() throws IOException {
+		return "Welcome to CURRENCY EXCHANGE APPLICATION";
+		
+	}	
 	
 	@ExceptionHandler(Exception.class)
 	public String currencyExchangeExceptionHandler() {
