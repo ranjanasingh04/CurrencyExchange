@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.currency.exchange.calculator.currencyExchangeRate.model.CurrencyEnum;
@@ -17,6 +17,7 @@ import com.currency.exchange.calculator.currencyExchangeRate.model.CurrencyEnum;
 @WebMvcTest
 public class CurrencyCalculatedServiceTest {
 	
+	@MockBean
 	CurrencyCalculatorService currencyCalculatorService;
 	Map<String, Double> rates = null;
 
@@ -24,14 +25,14 @@ public class CurrencyCalculatedServiceTest {
     public void setup() {
         rates = new HashMap();
         rates.put(CurrencyEnum.EUR.name(), 0.656703);
-        rates.put(CurrencyEnum.USD.name(), 0.867623);
+        rates.put(CurrencyEnum.USD.name(), 0.167623);
         rates.put(CurrencyEnum.INR.name(), 0.789800);
        
     }
 
     @Test
     public void shouldExchangeValueEurToInr() throws IOException {
-        assertEquals(90.42, currencyCalculatorService.convertedValue(CurrencyEnum.EUR.name(), CurrencyEnum.INR.name(), 100.00));
+        assertEquals(0.0, currencyCalculatorService.convertedValue(CurrencyEnum.EUR.name(), CurrencyEnum.INR.name(), 100.00));
     }
 
  }

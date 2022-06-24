@@ -1,13 +1,22 @@
 package com.currency.exchange.calculator.currencyExchangeRate.controller;
 
-import org.junit.Test;
+
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.Test;
 
 import com.currency.exchange.calculator.currencyExchangeRate.service.CurrencyCalculatorService;
 
@@ -20,12 +29,20 @@ public class CurrencyExchangeRateControllerTest {
     @MockBean
     private CurrencyCalculatorService currencyCalculatorService;
 
+    @Autowired
     private MockMvc mockMvc;
+    
+    @Mock
+    RestTemplate restTemplate;
+    
 
     
     @Test
     public void testGetAllCurrencycode() throws Exception {
-        Mockito.when(currencyCalculatorService.getCurrencyCode());
+    	String currencyValue=null;
+		currencyValue = new String(Files.readAllBytes(Paths.get("C:\\Users\\ranja\\workfolder\\CurrencyExchange\\CurrencyExchange\\src\\main\\java\\currencyExchangeValue.txt")));
+	
+        Mockito.when(currencyCalculatorService.getCurrencyCode()).thenReturn(currencyValue);
 
         this.mockMvc.perform(get("/api/v1/currencyCode"))
                 .andExpect(status().isOk())
@@ -36,9 +53,10 @@ public class CurrencyExchangeRateControllerTest {
     
     @Test 
     public void testGetAllCurrencyExchangevalue() throws Exception {
-        Mockito.when(currencyCalculatorService.convertedValue(Mockito.any(), Mockito.any(), Mockito.any()));
+    	
+        Mockito.when(currencyCalculatorService.convertedValue(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(10.00);
 
-        this.mockMvc.perform(get("/api/v1/exchangeRate"))
+        this.mockMvc.perform(get("/api/v1/exchangeRate/EUR/USD/100.00"))
                 .andExpect(status().isOk())
                 .andReturn();
 

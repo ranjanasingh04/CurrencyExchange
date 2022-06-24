@@ -26,12 +26,6 @@ public class CurrencyCalculatorController {
 	@Autowired
 	CurrencyCalculatorService service;
 	
-	@GetMapping("/number")
-	public long getNumber() {
-		
-		return 1l;
-	}
-	
 	@GetMapping("/currencyCode")
 	public String getCurrencyCode() throws IOException {
 		return service.getCurrencyCode();
@@ -42,12 +36,6 @@ public class CurrencyCalculatorController {
 	public Double getExchangeRate(@PathVariable String source, @PathVariable String currency, @PathVariable Double value) throws IOException {
 		return service.convertedValue(source,currency,value);
 	}
-	
-	@GetMapping("/homePage")
-	public String getHomePage() throws IOException {
-		return "Welcome to CURRENCY EXCHANGE APPLICATION";
-		
-	}	
 	
 	@ExceptionHandler(Exception.class)
 	public String currencyExchangeExceptionHandler() {
